@@ -1,0 +1,14 @@
+<div class="main">
+  <div class="container">
+    <h1>🎵 Random Song Player 🎵</h1>
+    <p>Enter a number between <strong>1</strong> and <strong>5</strong> to play a song.</p>
+    <input
+      type="number"
+      placeholder="Enter a number..."
+      (input)="onNumberChange($event)"
+      min="1"
+      max="5"
+    />
+    <p class="hint">Guess which song is playing! 🎶</p>
+  </div>
+</div>
