@@ -6,16 +6,17 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  
-  songs: string[] = [
-    'assets/songs/song1.mp3',
-    'assets/songs/song2.mp3',
-    'assets/songs/song3.mp3',
-    'assets/songs/song4.mp3',
-    'assets/songs/song5.mp3',
+  //  songs with names and file paths
+  songs: { path: string; name: string }[] = [
+    { path: 'assets/songs/song1.mp3', name: 'Nawazuddin - Seedhe Maut' },
+    { path: 'assets/songs/song2.mp3', name: 'Khatta Flow - Seedhe Maut' },
+    { path: 'assets/songs/song3.mp3', name: 'Namastute - Seedhe Maut' },
+    { path: 'assets/songs/song4.mp3', name: '101 - Seedhe Maut' },
+    { path: 'assets/songs/song5.mp3', name: 'Round 3 - Seedhe Maut' },
   ];
 
   audio: HTMLAudioElement = new Audio();
+  currentSongName: string = ''; //   name of the currently playing song stored here
 
   onNumberChange(event: any) {
     const chosenNumber = parseInt(event.target.value, 10);
@@ -28,15 +29,18 @@ export class AppComponent {
   }
 
   playSong(number: number) {
-    
+    // Stop any playing audio
     this.audio.pause();
     this.audio.currentTime = 0;
 
-    
+    // selected song details
     const selectedSong = this.songs[number - 1];
 
-    
-    this.audio.src = selectedSong;
+    // Update the current song name
+    this.currentSongName = selectedSong.name;
+
+    // Set audio source and play
+    this.audio.src = selectedSong.path;
     this.audio.load();
     this.audio.play().catch((error) => {
       console.error('Error playing audio:', error);
@@ -47,11 +51,12 @@ export class AppComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'Backspace') {
-     
+      // Stop the song on Backspace
       this.audio.pause();
       this.audio.currentTime = 0;
+
+      // Clear the song name
+      this.currentSongName = '';
     }
   }
 }
-
-// when you press backspace song will stop.HostListner is added for that purpose..
