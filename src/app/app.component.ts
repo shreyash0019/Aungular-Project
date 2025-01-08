@@ -6,7 +6,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  // List of relative paths to song files
+  
   songs: string[] = [
     'assets/songs/song1.mp3',
     'assets/songs/song2.mp3',
@@ -28,14 +28,14 @@ export class AppComponent {
   }
 
   playSong(number: number) {
-    // Stop any currently playing audio
+    
     this.audio.pause();
     this.audio.currentTime = 0;
 
-    // Get the song based on the number entered
+    
     const selectedSong = this.songs[number - 1];
 
-    // Set the audio source and play
+    
     this.audio.src = selectedSong;
     this.audio.load();
     this.audio.play().catch((error) => {
@@ -47,9 +47,11 @@ export class AppComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'Backspace') {
-      // Stop the song when Backspace is pressed
+     
       this.audio.pause();
       this.audio.currentTime = 0;
     }
   }
 }
+
+// when you press backspace song will stop.HostListner is added for that purpose..
